@@ -13,10 +13,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.Index;
+import javax.persistence.Table;
 import java.util.Collection;
 import java.util.UUID;
 
 @Entity
+@Table(indexes = {@Index(name = "idx_usuario_email", columnList = "email")})
 @Getter
 @Setter
 public class Usuario extends Identity<UUID> implements UserDetails {
