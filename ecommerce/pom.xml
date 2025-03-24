@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>br.com.trajy</groupId>
-        <artifactId>ecommerce</artifactId>
+        <artifactId>api-ecommerce</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>e-commerce</artifactId>
+    <artifactId>ecommerce</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -46,6 +46,13 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>br.com.trajy.ecommerce.init.EcommerceApplication</mainClass> <!-- Aponta a classe principal do Spring Boot -->
                 </configuration>
             </plugin>
         </plugins>
