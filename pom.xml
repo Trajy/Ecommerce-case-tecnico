@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.com.trajy</groupId>
-	<artifactId>ecommerce</artifactId>
+	<artifactId>api-ecommerce</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>ecommerce</name>
@@ -26,7 +26,7 @@
 	</developers>
 	<modules>
 		<module>security</module>
-		<module>e-commerce</module>
+		<module>ecommerce</module>
         <module>payment</module>
     </modules>
 	<properties>
@@ -145,6 +145,20 @@
 
 	<build>
 		<plugins>
+			<!-- Maven Jar Plugin para criar o arquivo JAR com a classe principal -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifestEntries>
+							<Main-Class>br.com.trajy.ecommerce.init.EcommerceApplication</Main-Class>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+
+			<!-- Maven Compiler Plugin com configuração de versão do Java e Lombok/Mapstruct -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -162,7 +176,6 @@
 							<artifactId>lombok</artifactId>
 							<version>${projectlombok.version}</version>
 						</path>
-						<!-- This is needed when using Lombok 1.8.16 and above -->
 						<path>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok-mapstruct-binding</artifactId>
@@ -173,7 +186,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
-
 
 </project>
