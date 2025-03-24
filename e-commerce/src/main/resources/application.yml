@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: e-commerce
+  datasource:
+    url: jdbc:mysql://localhost:3306/e_commerce_db
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql:
+  jackson:
+    default-property-inclusion: non_null
+
+api:
+  auth:
+    secret-key: ${API_SECRET_KEY:local-secret-key}
+
+server:
+  port: 8089
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
