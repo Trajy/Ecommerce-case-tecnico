@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm
+                     http://java.sun.com/xml/ns/persistence/orm_2_1.xsd"
+                 version="2.1">
+
+    <named-query name="Produto.findPrecoByIds">
+        <query>
+            <![CDATA[
+                SELECT p.id AS id, p.preco AS preco FROM Produto p WHERE p.id IN :ids
+            ]]>
+        </query>
+    </named-query>
+
+    <!-- Query para obter o ticket médio de cada usuário, agora usando a interface -->
+    <named-query name="Estatistica.findTicketMedioPorUsuario">
+        <query>
+            <![CDATA[
+                SELECT u.id AS id, u.nome AS nome, u.email AS email,
+                AVG(p.totalProdutos) AS ticketMedio
+                FROM Usuario u
+                JOIN Pedido p ON p.usuario = u
+                GROUP BY u.id
+            ]]>
+        </query>
+    </named-query>
+
+    <!-- Query para obter o total faturado no mês corrente -->
+    <named-query name="Estatistica.getTotalFaturadoMes">
+        <query>
+            <![CDATA[
+                SELECT SUM(p.totalProdutos) FROM Pedido p
+                WHERE MONTH(p.createdAt) = MONTH(CURRENT_DATE)
+                AND YEAR(p.createdAt) = YEAR(CURRENT_DATE)
+            ]]>
+        </query>
+    </named-query>
+
+    <named-native-query name="Estatistica.findTopUsuariosMaisCompraram">
+        <query>
+            <![CDATA[
+                SELECT u.id AS id, u.nome AS nome, u.email AS email, COUNT(p.id) AS totalPedidos
+                FROM pedido p
+                JOIN usuario u ON p.usuario_id = u.id
+                GROUP BY u.id
+                ORDER BY totalPedidos DESC
+                LIMIT :quantidade
+            ]]>
+        </query>
+    </named-native-query>
+
+</entity-mappings>
