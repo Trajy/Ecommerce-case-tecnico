@@ -1,0 +1,519 @@
+{
+	"info": {
+		"_postman_id": "b5b59351-8407-4ac4-b0d1-22bf26eb8312",
+		"name": "E-Commerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20965177",
+		"_collection_link": "https://contmakers.postman.co/workspace/Contmatic~e804d0b3-b11f-4c34-8c2f-4d59d0322a46/collection/20965177-b5b59351-8407-4ac4-b0d1-22bf26eb8312?action=share&source=collection_link&creator=20965177"
+	},
+	"item": [
+		{
+			"name": "usuario",
+			"item": [
+				{
+					"name": "cadastrar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"usuario teste\",\r\n    \"email\": \"teste@teste.com\",\r\n    \"senha\": \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8089/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "autenticar",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Verifica se a resposta contém um JSON válido\r",
+									"if (pm.response.code === 200) {\r",
+									"    try {\r",
+									"        var jsonData = pm.response.json();\r",
+									"        if (jsonData.token) {\r",
+									"            pm.globals.set(\"AuthenticationToken\", jsonData.token);\r",
+									"            console.log(\"Token salvo com sucesso:\", jsonData.token);\r",
+									"        } else {\r",
+									"            console.log(\"A resposta não contém um token.\");\r",
+									"        }\r",
+									"    } catch (e) {\r",
+									"        console.log(\"Erro ao processar o JSON:\", e);\r",
+									"    }\r",
+									"} else {\r",
+									"    console.log(\"Erro na requisição. Código de status:\", pm.response.code);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"teste@teste.com\",\r\n    \"senha\": \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8089/user/auth",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"user",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "produto",
+			"item": [
+				{
+					"name": "save",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AuthenticationToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"produto-teste\",\r\n    \"descricao\": \"descricao do produto\",\r\n    \"preco\": 25.80,\r\n    \"quantidadeEstoque\": 5,\r\n    \"categoria\": \"ELETRO_ELETRONICO\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8089/produtos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"produtos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AuthenticationToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"produto-test\",\r\n    \"descricao\": \"descricao do produto\",\r\n    \"preco\": 25.80,\r\n    \"quantidadeEstoque\": 5,\r\n    \"categoria\": \"ELETRO_ELETRONICO\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8089/produtos/cfcfbf3e-d9bc-4474-9358-5e21f5a45b90",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"produtos",
+								"cfcfbf3e-d9bc-4474-9358-5e21f5a45b90"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8089/produtos/2c5cafc9-0120-4af3-a4c1-753a2d3c7172",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"produtos",
+								"2c5cafc9-0120-4af3-a4c1-753a2d3c7172"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8089/produtos?page=2&pageSize=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"produtos"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								},
+								{
+									"key": "pageSize",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "pedido",
+			"item": [
+				{
+					"name": "save",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AuthenticationToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n    \"produtosPedidos\":[\r\n        {\r\n            \"produto\": {\r\n                \"id\": \"033b057e-681f-4850-8434-693fdc17a461\"\r\n            },\r\n            \"quantidade\": 2\r\n        },\r\n        {\r\n            \"produto\": {\r\n                \"id\": \"4cd020dc-beaf-4e78-be49-93cd7ca4e995\"\r\n            },\r\n            \"quantidade\": 1\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8089/pedidos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"pedidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AuthenticationToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"7f4b4f6b-7fb1-4b37-9dd0-61611c2987f5\",\r\n    \"createdBy\": \"teste@teste.com\",\r\n    \"createdAt\": \"2025-03-25T05:10:59.308Z\",\r\n    \"ip\": \"0:0:0:0:0:0:0:1\",\r\n    \"produtosPedidos\": [\r\n        {\r\n            \"id\": \"5534cf16-ce03-4561-99eb-5da3da0f3bae\",\r\n            \"produto\": {\r\n                \"id\": \"4cd020dc-beaf-4e78-be49-93cd7ca4e995\",\r\n                \"nome\": \"Intelligent Paper Lamp\",\r\n                \"descricao\": \"Veritatis sunt et aperiam harum.\",\r\n                \"preco\": 548.12,\r\n                \"quantidadeEstoque\": 16,\r\n                \"categoria\": \"ALIMENTO\"\r\n            },\r\n            \"preco\": 548.12,\r\n            \"quantidade\": 17\r\n        },\r\n        {\r\n            \"id\": \"cee6aabd-0e9d-49ce-ba73-7945096cc6e7\",\r\n            \"produto\": {\r\n                \"id\": \"033b057e-681f-4850-8434-693fdc17a461\",\r\n                \"nome\": \"Small Plastic Bag\",\r\n                \"descricao\": \"Deserunt nemo veritatis ipsa dolorem dignissimos.\",\r\n                \"preco\": 745.85,\r\n                \"quantidadeEstoque\": 23,\r\n                \"categoria\": \"LIMPEZA\"\r\n            },\r\n            \"preco\": 745.85,\r\n            \"quantidade\": 24\r\n        }\r\n    ],\r\n    \"status\": \"PEDENTE\",\r\n    \"totalProdutos\": 27218.44\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8089/pedidos/7912503c-5aca-4a92-b5ab-7571fdaba974",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"pedidos",
+								"7912503c-5aca-4a92-b5ab-7571fdaba974"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AuthenticationToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8089/pedidos/419d71c2-3b29-46fb-a6f7-3cc7e4553f72",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"pedidos",
+								"419d71c2-3b29-46fb-a6f7-3cc7e4553f72"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AuthenticationToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8089/pedidos?pageSize=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"pedidos"
+							],
+							"query": [
+								{
+									"key": "pageSize",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pagar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AuthenticationToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pedidoId\": \"bf9a54fc-bedc-4b09-998f-4a564cf793ab\",\r\n    \"numeroCartaoChavePix\": \"123049498564\",\r\n    \"nomePagador\": \"Teste Pagador\",\r\n    \"metodo\": \"CARTAO_CREDITO\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8089/pedidos/pagamentos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"pedidos",
+								"pagamentos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "estatistica",
+			"item": [
+				{
+					"name": "mais-compraram",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AuthenticationToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8089/estatisticas/mais-compraram",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"estatisticas",
+								"mais-compraram"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "total-faturado-mes",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AuthenticationToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8089/estatisticas/total-faturado-mes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"estatisticas",
+								"total-faturado-mes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ticket-medio",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AuthenticationToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8089/estatisticas/ticket-medio",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"estatisticas",
+								"ticket-medio"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

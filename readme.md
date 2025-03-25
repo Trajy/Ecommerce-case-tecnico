@@ -8,6 +8,7 @@ Este repositório contém o back-end desenvolvido utilizando Spring Framework pa
   - [Autenticação Stateless](#autenticação-stateless)
   - [Otimizações no Banco de Dados](#otimizações-no-banco-de-dados)
   - [Modulo Para Reutilização de Código](#modulo-para-reutilização-de-código)
+      - [O Módulo oferece suporte para:](#o-módulo-oferece-suporte-para)
   - [Tratamento de Erros](#tratamento-de-erros)
   - [Regras de Negócio](#regras-de-negócio)
 
@@ -35,7 +36,8 @@ As configurações de conexão com o banco de dados podem ser definidas nas segu
 - SPRING_DATASOURCE_PASSWORD (padrão: root)
 
 > [!TIP]
-> Ao executar os containers definidos no docker compose, nenhuma variável de ambiente precisa ser difinida, basta apenas executar a aplicação.
+> Ao executar os containers definidos no docker compose, nenhuma variável de ambiente precisa ser definida, basta apenas executar a aplicação. \
+> Utilize a [Postman Colletcion](/E-Commerce.postman_collection.json) com os endpoints para realizar testes na aplicação.
 
 Para executar aplicação Api Ecommerce no diretório do modulo principal [./ecommerce/](./ecommerce/) execute:
 
