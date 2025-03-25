@@ -29,7 +29,4 @@ public class PedidoDTO extends AuditableResource<UUID> {
     @Null(message = "Total dos produtos não deve ser informado.")
     private BigDecimal totalProdutos;
 
-    @Null
-    private String situacao;
-
 }

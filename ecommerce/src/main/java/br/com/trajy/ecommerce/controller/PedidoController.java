@@ -28,7 +28,7 @@ public class PedidoController extends ControllerAbstract<UUID, PedidoDTO> {
     public ResponseEntity<?> pagar(@RequestBody PagamentoDTO dto) {
         return ok(
                 config.getAssembly().toResource(
-                        config.getService().processar(
+                        config.getPagamentoPedidoService().processar(
                                 config.getPagamentoAssembly().toEntity(dto)
                         )
                 )

@@ -54,6 +54,4 @@ public class Pedido extends AuditableEntity<UUID> {
     @Column(nullable = false)
     private BigDecimal totalProdutos;
 
-    private String situacao;
-
 }
