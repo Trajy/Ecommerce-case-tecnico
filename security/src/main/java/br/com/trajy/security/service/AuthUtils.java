@@ -11,9 +11,13 @@ import static org.apache.commons.lang3.StringUtils.uncapitalize;
 import br.com.trajy.security.config.PropertyLoader;
 import br.com.trajy.security.model.constant.UserRoleType;
 import br.com.trajy.security.model.entity.Usuario;
+import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.stereotype.Service;
+import java.time.Instant;
 
 @Service
 public final class AuthUtils {
@@ -30,16 +34,24 @@ public final class AuthUtils {
                 .sign(getBean(Algorithm.class));
     }
 
+    public static boolean validateToken(String token) throws JWTVerificationException {
+            decodeJwt(token);
+            return true;
+    }
+
     public static Usuario getUsuarioByToken(String jwtToken) {
-        DecodedJWT decoded = require(getBean(Algorithm.class))
-                .withIssuer(getBean(PropertyLoader.class).getApplicationName())
-                .build()
-                .verify(jwtToken);
+        DecodedJWT decoded = decodeJwt(jwtToken);
         Usuario usuario = new Usuario();
         usuario.setId(fromString(decoded.getClaim("id").asString()));
         usuario.setEmail(decoded.getSubject());
         usuario.setRole(decoded.getClaim(uncapitalize(UserRoleType.class.getSimpleName())).as(UserRoleType.class));
         return usuario;
+    }
+
+    private static DecodedJWT decodeJwt(String token) {
+        return require(getBean(Algorithm.class))
+                .withIssuer(getBean(PropertyLoader.class).getApplicationName())
+                .build().verify(token);
     }
 
 }

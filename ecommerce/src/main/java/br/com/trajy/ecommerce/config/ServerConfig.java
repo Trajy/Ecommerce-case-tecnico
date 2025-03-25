@@ -22,24 +22,27 @@ public class ServerConfig {
                 .authorizeHttpRequests(authorizeHttpRequestsCustomizer -> {
                     authorizeHttpRequestsCustomizer
                             .antMatchers(
-                                    GET,
-                                    "/produtos",
-                                    "/pedidos",
-                                    "/pedidos/**",
-                                    "/produtos",
+                                GET,
+                                "/produtos",
                                     "/produtos/**"
+                            )
+                            .permitAll()
+                            .antMatchers(
+                                GET,
+                                "/pedidos",
+                                "/pedidos/**",
+                                "/produtos",
+                                "/produtos/**"
                             )
                             .hasAnyRole(ADMIN.name(), USER.name())
                             .antMatchers(
-                                    POST,
-                                    "/pedidos",
-                                    "/pedidos/pagamentos"
-
-                            ).hasAnyRole(ADMIN.name(), USER.name())
+                                POST,
+                                "/pedidos",
+                                "/pedidos/pagamentos"
+                            )
+                            .hasAnyRole(ADMIN.name(), USER.name())
                             .anyRequest().hasRole(ADMIN.name());
-
                 })
-                //.authorizeHttpRequests(customizer -> customizer.anyRequest().permitAll())
                 .build();
 
     }
