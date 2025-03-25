@@ -31,7 +31,7 @@ public class PagamentoPedidoService {
         efetivarPagamento(pagamento, pedido);
         atualizarProdutosAposPagamento(pedido);
         PREPARACAO.changeStatus(pedido);
-        return pedidoService.save(pedido);
+        return pedidoService.update(pedido);
     }
 
     private void checkIfHasEstoque(Pedido pedido) {
