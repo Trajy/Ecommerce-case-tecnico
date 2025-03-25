@@ -4,7 +4,6 @@ import static br.com.trajy.ecommerce.model.constant.PedidoStatusType.CANCELADO;
 import static br.com.trajy.ecommerce.model.constant.PedidoStatusType.PREPARACAO;
 import static br.com.trajy.ecommerce.service.util.pedido.PedidoUtils.recalculaQuantidadeEstoqueProdutos;
 import static com.google.common.base.Preconditions.checkState;
-import static org.apache.commons.lang3.BooleanUtils.isFalse;
 
 import br.com.trajy.ecommerce.model.entity.Pedido;
 import br.com.trajy.ecommerce.model.entity.ProdutoPedido;
@@ -38,7 +37,7 @@ public class PagamentoPedidoService {
     private void checkIfHasEstoque(Pedido pedido) {
         recalculaQuantidadeEstoqueProdutos(pedido);
         if(CANCELADO.equals(pedido.getStatus())) {
-            pedidoService.saveAndCommit(pedido);
+            pedidoService.updateAndCommit(pedido);
             throw new IllegalStateException("Pedido cancelado, falta de itens em estoque.");
         }
     }
