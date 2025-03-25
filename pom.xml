@@ -45,7 +45,7 @@
 		<dependency>
 	    	<groupId>com.github.Trajy</groupId>
 	    	<artifactId>Spring-Api-Architecture</artifactId>
-	    	<version>case-tecnico-foursales-152bcd9057-1</version>
+			<version>case-tecnico-foursales-d1dd6bf569-1</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.springframework.cloud</groupId>
