@@ -1,2 +1,6 @@
 /mvnw text eol=lf
 *.cmd text eol=crlf
+
+*.jpg   binary
+*.jpeg  binary
+*.mp4   binary
