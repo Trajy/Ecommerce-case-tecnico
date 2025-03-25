@@ -8,6 +8,9 @@ Este repositório contém o back-end desenvolvido utilizando Spring Framework pa
 
 O arquivo [docker-compose.yml](/docker-compose.yml) contem as declarações e configurações para disponibilizar uma instancia do banco de dados MySql, bastar executar o comando.
 
+> [!WARNING]
+> Antes de iniciar a aplicação realize a criação das tabelas (DDL) e adição do registros (DML) importando o arquivo [dump.sql](./dump.sql).
+
 ```bash
 docker-compose.yml
 ```
