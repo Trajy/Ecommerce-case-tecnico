@@ -1,10 +1,20 @@
-# Case Técnico
+# Case Técnico Ecommerce
 
 Este repositório contém o back-end desenvolvido utilizando Spring Framework para atender aos requisitos do desafio.
 
 ## Sumário
+  - [Como Executar o projeto](#como-executar-o-projeto)
+  - [Modularização](#modularização)
+  - [Autenticação Stateless](#autenticação-stateless)
+  - [Otimizações no Banco de Dados](#otimizações-no-banco-de-dados)
+  - [Modulo Para Reutilização de Código](#modulo-para-reutilização-de-código)
+  - [Tratamento de Erros](#tratamento-de-erros)
+  - [Regras de Negócio](#regras-de-negócio)
 
 ## Como Executar o projeto
+
+> [!IMPORTANT]
+> Este repositório cotém video de demonstação da execução e endpoints via postman. Pode ser encontrado em [./docs/video/demonstracao-api-ecommerce.mp4](./docs/video/demonstracao-api-ecommerce.mp4)
 
 O arquivo [docker-compose.yml](/docker-compose.yml) contem as declarações e configurações para disponibilizar uma instancia do banco de dados MySql, bastar executar o comando.
 
@@ -88,6 +98,7 @@ Foram feitas as otimizações afim de obter melhor performance no processamento 
     @Setter
     public class Pedido extends AuditableEntity<UUID> { ... }
     ```
+
 ## Modulo Para Reutilização de Código
 A aplicação possui o módulo para reutilização de código e implementação dos padrões de projeto [Strategy](https://refactoring.guru/design-patterns/strategy) e [Template Method](https://refactoring.guru/design-patterns/template-method).
 
