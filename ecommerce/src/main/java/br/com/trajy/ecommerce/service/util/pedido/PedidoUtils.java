@@ -7,6 +7,7 @@ import static java.util.stream.Collectors.joining;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 import static org.apache.commons.collections4.IteratorUtils.find;
 import static org.apache.commons.collections4.IteratorUtils.isEmpty;
+import static org.apache.commons.lang3.ObjectUtils.notEqual;
 
 import br.com.trajy.ecommerce.model.entity.Pedido;
 import br.com.trajy.ecommerce.model.entity.Produto;
@@ -46,7 +47,7 @@ public final class PedidoUtils {
         pedido.getProdutosPedidos().forEach(produtoPedido -> {
             Produto produto = produtoPedido.getProduto();
             int estoqueRestante = produto.getQuantidadeEstoque() - produtoPedido.getQuantidade();
-            if(estoqueRestante < 0) {
+            if(estoqueRestante < 0 && notEqual(CANCELADO, pedido.getStatus())) {
                 CANCELADO.changeStatus(pedido);
                 return;
             }

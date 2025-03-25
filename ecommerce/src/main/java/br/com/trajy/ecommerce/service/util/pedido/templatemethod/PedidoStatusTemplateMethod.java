@@ -18,7 +18,7 @@ public abstract class PedidoStatusTemplateMethod {
         throw new UnsupportedOperationException(
                 format(
                         "Cant change state from %s to %s",
-                        nonNull(pedido.getStatus()) ? pedido.getStatus().getClass().getSimpleName() : "null",
+                        nonNull(pedido.getStatus()) ? pedido.getStatus().name() : "null",
                         this.getClass().getSimpleName()
                 )
         );
